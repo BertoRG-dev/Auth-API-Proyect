@@ -2,6 +2,8 @@ require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const db = require("./src/db");
+const authRoutes = require('./src/routes/auth.routes');
+const userRoutes = require('./src/routes/user.routes');
 
 const app = express();
 
@@ -12,6 +14,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 db.connectDB()
   .then(() => {
@@ -25,5 +30,5 @@ db.connectDB()
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on http://localhost:${PORT}/`);
 });

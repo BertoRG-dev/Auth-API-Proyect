@@ -12,6 +12,17 @@ router.use(function (req, res, next) {
     next();
 });
 
+/**
+ * @swagger
+ * /api/auth/signup:
+ *  post:
+ *      tags:
+ *       - Authorization
+ *      description: Register into the database 
+ *      responses:
+ *          201:
+ *              description: Success    
+ */
 router.post("/auth/signup",
     [
         verifySignUp.checkDuplicateUsernameOrEmail,
@@ -19,6 +30,17 @@ router.post("/auth/signup",
     ],
     controller.signup);
 
+/**
+ * @swagger
+ * /api/auth/signin:
+ *  post:
+ *      tags:
+ *       - Authorization
+ *      description: Login 
+ *      responses:
+ *          201:
+ *              description: Success    
+ */
 router.post("/auth/signin", controller.signin);
 
 

@@ -12,9 +12,48 @@ router.use(function (req, res, next) {
     next();
 });
 
+/**
+ * @swagger
+ * /api/test/all:
+ *  get:
+ *      tags:
+ *       - Content
+ *      description: Register into the database 
+ *      responses:
+ *          201:
+ *              description: Success    
+ */
 router.get("/test/all", UserController.allAccess);
 
+
+/**
+ * @swagger
+ * /api/test/user:
+ *  get:
+ *      tags:
+ *       - Content
+ *      security:
+ *       - BearerAuth: []
+ *      description: Register into the database 
+ *      responses:
+ *          201:
+ *              description: Success    
+ */
 router.get("/test/user", [authJwt.verifyToken], UserController.userBoard);
+
+/**
+ * @swagger
+ * /api/test/admin:
+ *  get:
+ *      tags:
+ *       - Content
+ *      security:
+ *       - BearerAuth: []
+ *      description: Register into the database 
+ *      responses:
+ *          201:
+ *              description: Success    
+ */
 router.get("/test/admin", [authJwt.verifyToken, authJwt.isAdmin], UserController.adminBoard);
 
 module.exports = router;
